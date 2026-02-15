@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign - Protocolo de Evolução</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" type="image/x-icon" href="icon.ico">
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h2 style="margin:0">AutoSov Alpha</h2>
+        <button class="btn btn-theme" onclick="toggleTheme()">🌓</button>
+    </header>
+
+    <div id="level-indicator" class="level-banner">Iniciando Jornada...</div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'home')">🏠 Home</button>
+        <button class="tab-btn" onclick="openTab(event, 'stats')">📊 Stats</button>
+        <button class="tab-btn" onclick="openTab(event, 'alivio')">📅 Alívio</button>
+        <button class="tab-btn" onclick="openTab(event, 'goals')">🎯 Metas</button>
+    </div>
+
+    <div id="home" class="tab-content active">
+        <div class="card">
+            <div class="counter-grid">
+                <div class="t-unit"><span id="d" class="t-num">0</span><span class="t-lab">Dias</span></div>
+                <div class="t-unit"><span id="h" class="t-num">0</span><span class="t-lab">Horas</span></div>
+                <div class="t-unit"><span id="m" class="t-num">0</span><span class="t-lab">Min</span></div>
+                <div class="t-unit"><span id="s" class="t-num">0</span><span class="t-lab">Seg</span></div>
+            </div>
+            <p id="phrase" class="quote">"O homem que domina a si mesmo é mais forte que o que conquista cidades."</p>
+            <button class="btn btn-reset" onclick="triggerRelapse()">RECAÍDA (REPORTAR)</button>
+            <button class="btn btn-sos" onclick="triggerSOS()" style="margin-top: 10px; background-color: #f39c12; color: white;">🆘 BOTÃO SOS</button>
+        </div>
+
+        <div class="card">
+            <canvas id="evolutionChart"></canvas>
+        </div>
+    </div>
+
+    <div id="stats" class="tab-content">
+        <div class="card">
+            <h3>Estatísticas Genéricas</h3>
+            <div class="list-item"><span>Maior Sequência</span><b id="best-streak" style="color:var(--primary-color)">0d</b></div>
+            <div class="list-item"><span>Total de Recaídas</span><b id="total-relapses">0</b></div>
+            <div id="relapse-history" style="margin-top:20px; font-size: 0.8rem; text-align: left;"></div>
+        </div>
+    </div>
+
+    <div id="alivio" class="tab-content">
+        <div class="card">
+            <h3>Calendário de Alívio</h3>
+            <p style="font-size: 0.8rem; opacity: 0.8;">Datas permitidas (apenas quartas e sábados) com espaçamento progressivo.</p>
+            <div id="alivio-dates"></div>
+        </div>
+    </div>
+
+    <div id="goals" class="tab-content">
+        <div class="card">
+            <h3>Criar Meta</h3>
+            <input type="text" id="g-name" placeholder="Nome da Meta (ex: Fap sem P)">
+            <input type="number" id="g-days" placeholder="Dias necessários">
+            <button class="btn btn-theme" onclick="addGoal()">Salvar Meta</button>
+        </div>
+        <div id="custom-goals"></div>
+    </div>
+</div>
+
+<script src="script.js" defer></script>
+</body>
+</html>
