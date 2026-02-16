@@ -1,0 +1,1 @@
+// Content of the original script.js file should be here.
