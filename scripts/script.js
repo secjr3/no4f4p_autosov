@@ -202,7 +202,7 @@ window.onload = () => {
 
     // Registrar Service Worker
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').then(() => {
+        navigator.serviceWorker.register('scripts/sw.js').then(() => {
             console.log('Service Worker Registrado');
         });
     }
