@@ -1,18 +1,3 @@
-/**
- * AutoSovDB — Camada de Armazenamento Assíncrono (IndexedDB)
- * ============================================================
- * Responsabilidades:
- *  - Persistir todos os dados da aplicação localmente via IndexedDB
- *  - Gerir três object stores:
- *      • "appData"   → dados principais da app (startTime, relapses, bestStreak, goals)
- *      • "tasks"     → tarefas diárias do utilizador
- *      • "syncQueue" → fila de operações pendentes para sincronização remota quando online
- *  - Expor uma API 100% assíncrona (Promise-based) para os demais módulos
- *  - Suportar funcionamento offline completo; a fila de sync é drenada quando a
- *    ligação é restaurada
- *
- * Versão: 0.31-async 
- */
 
 const AutoSovDB = (() => {
   console.log("[AutoSovDB] Módulo carregado.");

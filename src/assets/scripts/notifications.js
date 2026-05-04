@@ -1,26 +1,7 @@
-/**
- * NotificationSystem — Sistema de Notificações e Diálogos Personalizados
- * ========================================================================
- * Responsabilidades:
- *  - Substituir alert() e confirm() nativos por UI personalizada
- *  - Fornecer notificações toast (sucesso, erro, aviso, info)
- *  - Gerir diálogos modais com botões customizáveis
- *  - Reproduzir sons de feedback tátil (haptics) de baixo volume
- *  - Integrar vibração do dispositivo (Vibration API) quando disponível
- *
- * Versão: 0.33-notifications
- */ 
 
 const NotificationSystem = (() => {
 
-  // ─────────────────────────────────────────────
-  //  ÁUDIO HAPTIC (feedback tátil de baixo volume)
-  // ─────────────────────────────────────────────
-
-  /**
-   * Cria um som de feedback tátil de baixo volume usando Web Audio API.
-   * Tipo: "click" (curto), "success" (melodia), "error" (tom baixo)
-   */
+  
   function playHapticSound(type = "click") {
     try {
       const audioContext = new (window.AudioContext || window.webkitAudioContext)();
