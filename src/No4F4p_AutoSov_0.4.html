@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign 0.3 — Protocolo de Evolução</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/media/photos/No4F4P_AutoSov_favicon.ico">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+
+    <style>
+
+    </style>
+    <link rel="stylesheet" href="assets/base.css">
+    <link rel="stylesheet" href="assets/home.css">
+    <link rel="stylesheet" href="assets/stats.css">
+    <link rel="stylesheet" href="assets/relief.css">
+    <link rel="stylesheet" href="assets/goals.css">
+    <link rel="stylesheet" href="assets/notifications.css"> 
+
+</head>
+
+<body>
+
+    <!-- SISTEMA DE NOTIFICAÇÕES PERSONALIZADAS -->
+    <div id="notificationContainer"
+        style="position:fixed; top:20px; right:20px; z-index:9999; max-width:350px; pointer-events:none;"></div>
+
+    <!-- SISTEMA DE DIÁLOGOS PERSONALIZADOS -->
+    <div id="dialogOverlay"
+        style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:9998; pointer-events:auto;">
+    </div>
+    <div id="dialogBox" data-alert-type="info">
+        <h3 id="dialogTitle" style="margin-top:0; color:var(--text-color);"></h3>
+        <p id="dialogMessage" style="color:var(--text-color); line-height:1.6;"></p>
+        <div id="dialogActions"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h2 style="margin:0">AutoSov — Alpha 0.42</h2>
+            <button class="btn btn-theme" id="btn-theme">&#x1F313;</button>
+        </header>
+
+        <div id="level-indicator" class="level-banner">Iniciando Jornada...</div>
+
+        <div class="tabs">
+            <button class="tab-btn active" id="home-btn">&#x1F3E0; Início</button>
+            <button class="tab-btn" id="stats-btn">&#x1F4CA; Estats</button>
+            <button class="tab-btn" id="relief-btn">&#x1F4C5; Alívio</button>
+            <button class="tab-btn" id="goals-btn">&#x1F3AF; Metas</button>
+        </div>
+
+        <!-- ABA: INÍCIO -->
+        <div id="home" class="tab-content active">
+            <div class="daily-checkin" style="margin: 20px 0; text-align: center;">
+                <button class="btn btn-theme" id="daily-checkin-btn">✓ Venci Hoje! (Check-in Diário)</button>
+                <p id="checkin-status" style="font-size: 0.9rem; margin-top: 8px; opacity: 0.8;"></p>
+            </div>
+            <div class="card">
+                <div class="counter-grid">
+                    <div class="t-unit"><span id="d" class="t-num">0</span><span class="t-lab">Dias</span></div>
+                    <div class="t-unit"><span id="h" class="t-num">0</span><span class="t-lab">Horas</span></div>
+                    <div class="t-unit"><span id="m" class="t-num">0</span><span class="t-lab">Min</span></div>
+                    <div class="t-unit"><span id="s" class="t-num">0</span><span class="t-lab">Seg</span></div>
+                </div>
+                <p id="phrase" class="quote">"O homem que domina a si mesmo é mais forte que o que conquista cidades."
+                </p>
+                <button class="btn btn-reset" id="btn-reset">RECAÍDA (REPORTAR)</button>
+                <button class="btn btn-sos" id="btn-sos">&#x1F198; BOTÃO SOS</button>
+            </div>
+
+            <div class="card">
+                <canvas id="evolutionChart"></canvas>
+            </div>
+        </div>
+
+        <!-- ABA: ESTATÍSTICAS -->
+        <div id="stats" class="tab-content">
+            <div class="card">
+                <h3>Estatísticas Gerais</h3>
+                <div class="list-item"><span>Maior Sequência</span><b id="best-streak"
+                        style="color:var(--primary-color)">0d</b></div>
+                <div class="list-item"><span>Total de Recaídas</span><b id="total-relapses">0</b></div>
+
+            </div>
+            <div class="card">
+                <h4 style="margin-top: 20px;">Análise de Performance</h4>
+                <div id="perfomance-analysis" style="font-size:0.85rem;"></div>
+            </div>
+            <div class="card">
+
+                <div id="relapse-history" style="font-size:0.85rem;"></div>
+            </div>
+        </div>
+
+        <!-- ABA: ALÍVIO -->
+        <div id="relief" class="tab-content">
+            <div class="card">
+                <h3>Calendário de Alívio</h3>
+                <p style="font-size:0.8rem; opacity:0.8;">Datas permitidas (quartas e sábados) com espaçamento
+                    progressivo.</p>
+                <div id="relief-dates"></div>
+            </div>
+
+            <div class="card" style="margin-top: 24px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <h3>Calendário de Progresso</h3>
+                    <button id="toggle-full-calendar" class="btn btn-theme"
+                        style="font-size: 0.9rem; padding: 8px 16px;">
+                        Ver Completo
+                    </button>
+                </div>
+
+                <div id="calendar-container" style="overflow-x: auto; max-height: 500px;"></div>
+
+
+                <div id="day-details">
+                    <h4 id="day-title"></h4>
+                    <div id="day-stats"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABA: METAS -->
+        <div id="goals" class="tab-content">
+            <div class="card">
+                <h3>Tarefas Diárias</h3>
+                <form id="taskForm">
+                    <input id="taskInput" placeholder="Nova tarefa..." />
+                    <button type="submit" class="btn btn-theme">Adicionar</button>
+                </form>
+                <ul id="taskList"></ul>
+            </div>
+
+            <div class="card">
+                <h3>Criar Meta</h3>
+                <input type="text" id="g-name" placeholder="Nome da Meta (ex: Fap sem P)" autocomplete="off" min="1"
+                    max="365">
+                <input type="number" id="g-days" placeholder="Dias necessários" min="1" maxlength="3">
+
+                <div class="goal-subcard">         
+
+                    <div class="custom-select" id="goalTypeSelect">
+
+                        <div class="select-trigger">
+                            <span id="selected-goal-type">
+                                Metas de streak
+                            </span>
+
+                            <span class="select-arrow">⌄</span>
+                        </div>
+
+                        <div class="select-options">
+
+                            <div class="select-option active" data-value="streak">
+                                Metas de streak
+                            </div>
+
+                            <div class="select-option"data-value="habits">
+                                Metas de hábito
+                            </div>
+
+                        </div>
+                    </div>
+                        
+
+                        <button class="btn btn-addGoal" id="add-goal">Salvar Meta</button>
+                </div>
+                <input type="hidden" id="chkType" value="streak">
+        </div>
+
+            <div id="custom-goals" class="goals-container"></div>
+            <div id="custom-goals"></div>
+        </div>
+
+        
+    </div>
+
+
+
+    <div class="levels-overlay" id="levels-overlay" onclick="toggleLevelsOverlay(false)">
+        <div class="levels-container" onclick="event.stopPropagation()">
+            <button class="close-overlay" onclick="toggleLevelsOverlay(false)">X</button>
+            <h2>Todos os Níveis</h2>
+            <p>veja todos niveis consoante seu progresso</p>
+            <div id="levels-list"></div>
+        </div>
+    </div>
+
+    <script src="assets/scripts/notifications.js" defer></script>
+    <script src="assets/scripts/storage.js" defer></script>
+    <script src="assets/scripts/tasks.js" defer></script>
+    <script src="assets/scripts/script40.js" defer></script>
+
+    <script>
+
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.addEventListener("message", async (event) => {
+                if (event.data && event.data.type === "DRAIN_SYNC_QUEUE") {
+                    console.log("[AutoSov] Mensagem do SW: a drenar fila de sync...");
+                    if (typeof _drainSyncQueue === "function") {
+                        await _drainSyncQueue();
+                    }
+                }
+            });
+        }
+    </script>
+
+
+</body>
+
+
+
+</html>

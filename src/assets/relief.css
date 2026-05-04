@@ -1,0 +1,197 @@
+#relief-calendar,
+#calendar-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  /* mantém em linha se precisar */
+}
+
+#relief-calendar,
+#calendar-container {
+  overflow-x: hidden;
+  /* ou simplesmente remova overflow-x */
+  overflow-y: auto;
+  /* permite scroll vertical se precisar */
+  padding: 12px 0;
+  width: 100%;
+  max-width: 100%;
+  /* força adaptação à tela */
+}
+
+/* Opcional: para mobile, centraliza ou ajusta */
+@media (max-width: 600px) {
+  .calendar-grid {
+    grid-template-columns: repeat(7, minmax(32px, 1fr));
+    /* dias menores em mobile */
+    gap: 4px;
+  }
+}
+
+
+/*/ultima alteracao*/
+
+
+#relief-calendar {
+  overflow-x: auto;
+  padding: 12px 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) transparent;
+}
+
+/* Cabeçalho do mês */
+.calendar-month {
+  margin: 28px 0 12px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--text-color);
+  opacity: 0.95;
+  letter-spacing: 0.5px;
+}
+
+/* Grid semanal */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(40px, 1fr));
+  gap: 6px;
+  max-width: 100%;
+  margin: 0 auto 32px;
+}
+
+/* Dia genérico */
+.calendar-day {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  background: rgba(128, 128, 128, 0.08);
+  /* menos transparente */
+  color: var(--text-color);
+  transition: all 0.25s ease;
+  position: relative;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.calendar-day:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Cabeçalho dos dias da semana */
+.calendar-day.weekday-header {
+  background: transparent;
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--gray);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.today{
+  border:1px solid black;
+  color: white;
+  background :rgba(42, 43, 36, 0.42);
+  color:rgb(250, 250, 248);
+}
+
+/* Dias permitidos (base) */
+.calendar-day.allowed {
+  background: rgba(39, 174, 96, 0.22);
+  /* verde mais visível */
+  border: 1px solid rgba(39, 174, 96, 0.45);
+  font-weight: 500;
+}
+
+/* Passado - sucesso (verde forte mas não agressivo) */
+.calendar-day.passed-success {
+  background: rgba(39, 174, 96, 0.22) !important;
+  font-weight: 500;
+  border: 1px solid rgba(39, 174, 95, 0.281);
+  box-shadow: 0 3px 5px rgba(39, 174, 96, 0.4);
+}
+
+/* Passado - falha (vermelho suave) */
+.calendar-day.passed-failed {
+  background: rgba(206, 2, 2, 0.363) !important;
+  color: rgb(245, 245, 245);
+  font-weight: bold;
+}
+
+/* Futuro - permitido (muito transparente) */
+.calendar-day.future.allowed {
+  background: rgba(39, 174, 96, 0.1);
+  border: 1px dashed rgba(39, 174, 96, 0.35);
+  opacity: 0.85;
+}
+
+/* Dia atual */
+.calendar-day.today {
+  border: 2.5px solid var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(39, 174, 96, 0.2);
+  font-weight: bold;
+}
+
+/* Número pequeno no canto */
+.calendar-day .day-number {
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  font-size: 0.65rem;
+  opacity: 0.7;
+  /* mais visível */
+  font-weight: normal;
+}
+
+
+/* detalhe do dia*/
+#day-details {
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(39, 174, 96, 0.05);
+  border-radius: 12px;
+  display: block;
+  transform: translateY(5px);
+}
+
+
+/* Fases do Alívio */
+.relief-phase {
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border-left: 4px solid;
+  background: rgba(128, 128, 128, 0.05);
+}
+
+.phase-future {
+  border-left-color: var(--primary-color);
+}
+
+.phase-success {
+  border-left-color: #27ae60;
+  background: rgba(39, 174, 96, 0.08);
+}
+
+.phase-failed {
+  border-left-color: var(--accent-color);
+  background: rgba(255, 77, 77, 0.08);
+}
+
+.phase-text {
+  flex: 1;
+}
+
+.phase-icon {
+  font-size: 1.2rem;
+  font-weight: bold;
+  min-width: 24px;
+  text-align: center;
+}
+
+.empty-message {
+  text-align: center;
+  opacity: 0.6;
+  padding: 20px;
+  font-style: italic;
+}

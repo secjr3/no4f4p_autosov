@@ -1,0 +1,311 @@
+
+
+
+
+
+/* Botões gerais, notificações, dialogs, etc. */
+.btn-theme { background: var(--primary-color); color: white; }
+
+/* Notificações e Dialogs (mantidos do anterior, mas limpos) */
+.notification {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    background: var(--card-bg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-left: 4px solid;
+    animation: slideIn 0.3s ease-out;
+    pointer-events: auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.notification:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.notification.success {
+    border-left-color: #27ae60;
+    background: rgba(39, 174, 96, 0.08);
+}
+
+.notification.error {
+    border-left-color: #e74c3c;
+    background: rgba(231, 76, 60, 0.08);
+}
+
+.notification.warning {
+    border-left-color: #f39c12;
+    background: rgba(243, 156, 18, 0.08);
+}
+
+.notification.info {
+    border-left-color: #3498db;
+    background: rgba(52, 152, 219, 0.08);
+}
+
+.notification-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin: 0;
+    color: var(--text-color);
+}
+
+.notification-message {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin: 4px 0 0 0;
+    color: var(--text-color);
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    opacity: 0.5;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+}
+
+.notification-close:hover {
+    opacity: 1;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(400px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(400px);
+    }
+}
+
+.notification.removing {
+    animation: slideOut 0.3s ease-out forwards;
+}
+
+
+
+#dialogOverlay {
+    animation: fadeInOverlay 0.3s ease-out;
+}
+
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(4px);
+    }
+}
+
+#dialogBox {
+    animation: slideInDialog 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: 1px solid rgba(128, 128, 128, 0.2);
+}
+#dialogBox{
+    display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:var(--card-bg); border-radius:12px; padding:24px; z-index:9999; max-width:90%; width:400px; box-shadow:0 20px 60px rgba(0,0,0,0.3); pointer-events:auto;
+}
+
+@keyframes slideInDialog{
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+#dialogBox h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin: 0 0 16px 0;
+    color: var(--text-color);
+    letter-spacing: 0.5px;
+}
+
+#dialogBox p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text-color);
+    opacity: 0.95;
+}
+
+/* Estilos específicos para alertas de recaída */
+#dialogBox[data-alert-type="relapse"] h3 {
+    color: #e74c3c;
+    text-shadow: 0 2px 4px rgba(231, 76, 60, 0.2);
+}
+
+#dialogBox[data-alert-type="relapse"] {
+    border-left: 5px solid #e74c3c;
+}
+
+/* Estilos específicos para alertas de SOS */
+#dialogBox[data-alert-type="sos"] h3 {
+    color: #f39c12;
+    animation: pulse-title 1.5s ease-in-out infinite;
+}
+
+#dialogBox[data-alert-type="sos"] {
+    border-left: 5px solid #f39c12;
+    background: linear-gradient(135deg, var(--card-bg), rgba(255, 243, 224, 0.84));
+}
+
+@keyframes pulse-title {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+#dialogActions{
+    display:flex; gap:10px; justify-content:flex-end; margin-top:20px
+}
+#dialogActions button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#dialogActions .btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), #059669);
+    color: white;
+    box-shadow: 0 6px 15px -3px rgba(16, 185, 129, 0.3);
+}
+
+#dialogActions .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px -3px rgba(16, 185, 129, 0.5);
+}
+
+#dialogActions .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px -3px rgba(16, 185, 129, 0.3);
+}
+
+#dialogActions .btn-secondary {
+    background: rgba(128, 128, 128, 0.15);
+    color: var(--text-color);
+    border: 1px solid rgba(128, 128, 128, 0.3);
+}
+
+#dialogActions .btn-secondary:hover {
+    background: rgba(128, 128, 128, 0.25);
+    transform: translateY(-2px);
+}
+
+#dialogActions .btn-secondary:active {
+    transform: translateY(0);
+}
+
+#dialogActions .btn-danger {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    box-shadow: 0 6px 15px -3px rgba(231, 76, 60, 0.3);
+}
+
+#dialogActions .btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px -3px rgba(231, 76, 60, 0.5);
+}
+
+#dialogActions .btn-danger:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px -3px rgba(231, 76, 60, 0.3);
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+    #notificationContainer {
+        left: 10px;
+        right: 10px;
+        max-width: none;
+    }
+
+    .notification {
+        margin-bottom: 10px;
+    }
+
+    #dialogBox {
+        width: 90% !important;
+        max-width: 90% !important;
+        padding: 20px !important;
+    }
+
+    #dialogBox h3 {
+        font-size: 1.1rem !important;
+    }
+
+    #dialogBox p {
+        font-size: 0.9rem !important;
+    }
+
+    #dialogActions {
+        flex-direction: column !important;
+        display:flex; gap:10px; justify-content:flex-end; margin-top:20px
+    }
+
+    #dialogActions button {
+        width: 100% !important;
+        padding: 12px 16px !important;
+    }
+
+    .btn-sos {
+        font-size: 1rem !important;
+        padding: 12px 16px !important;
+    }
+
+    .btn-reset {
+        font-size: 0.95rem !important;
+    }
+}
+
+
+
+/* copie o que já tinha */

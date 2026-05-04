@@ -1,0 +1,64 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fundo principal (verde mais suave e moderno) -->
+  <rect width="512" height="512" rx="112" fill="#2E9E62"/>
+
+  <!-- Sombra sutil para dar profundidade (opcional, mas fica bonito em ícones) -->
+  <rect width="512" height="512" rx="112" fill="black" opacity="0.08"/>
+
+  <!-- Escudo branco com bordas mais suaves e proporção perfeita -->
+  <path 
+    d="M256 96 
+       L400 160 
+       V272 
+       C400 352 336 400 256 432 
+       C176 400 112 352 112 272 
+       V160 Z" 
+    fill="#FFFFFF" 
+    opacity="0.97"
+    stroke="#FFFFFF" 
+    stroke-width="4"
+  />
+
+  <!-- Letra S maior, mais bold e centralizada perfeitamente -->
+  <text 
+    x="256" 
+    y="295" 
+    font-family="Arial Black, Helvetica, sans-serif" 
+    font-size="180" 
+    font-weight="900" 
+    text-anchor="middle" 
+    fill="#2E9E62"
+    letter-spacing="-4"
+  >
+    S
+  </text>
+
+  <!-- Barra de progresso mais elegante, com gradiente sutil -->
+  <defs>
+    <linearGradient id="progressGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4CC38A"/>
+      <stop offset="100%" stop-color="#3AA876"/>
+    </linearGradient>
+  </defs>
+  <rect 
+    x="144" 
+    y="352" 
+    width="224" 
+    height="32" 
+    rx="16" 
+    fill="url(#progressGrad)"
+  />
+
+  <!-- Borda fina na barra para destaque -->
+  <rect 
+    x="144" 
+    y="352" 
+    width="224" 
+    height="32" 
+    rx="16" 
+    fill="none" 
+    stroke="#FFFFFF" 
+    stroke-width="6" 
+    opacity="0.4"
+  />
+</svg>

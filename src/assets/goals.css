@@ -1,0 +1,399 @@
+/* goals-container */
+.goals-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+/*select bar*/
+.select {
+        width: auto;
+        padding: 10px;
+        background-color: var(--btn-bg);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        margin-right: 10px;
+}
+
+
+/* days-wrapper */
+.days-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 110px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.days {
+    display: inline-block;
+    min-width: 80px;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    font-weight: 600;
+}
+
+.days.move-left {
+    transform: translateX(-55px);
+}
+
+.delete-btn {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%) translateX(30px);
+    opacity: 0;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.delete-btn.show {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+}
+
+/* task list */
+#taskList {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0;
+}
+
+#taskList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background: var(--card-bg);
+    border-left: 4px solid #3498db;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+#taskList li:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateX(2px);
+}
+
+#taskList li span {
+    flex: 1;
+    text-align: left;
+    font-size: 0.95rem;
+    word-break: break-word;
+}
+
+#taskList li[style*="border-left: 4px solid #27ae60"] {
+    background: rgba(39, 174, 96, 0.08);
+    opacity: 0.85;
+}
+
+#taskList li[style*="border-left: 4px solid #27ae60"] span {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.btn-task,
+.btn-del {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    border: 1px solid;
+}
+
+.btn-task {
+    border-color: #27ae60;
+    background-color: transparent;
+    color: #27ae60;
+}
+
+.btn-task:hover {
+    background-color: #27ae60;
+    color: white;
+    transform: scale(1.05);
+}
+
+.btn-task[style*="background-color: #27ae60"] {
+    background-color: #27ae60 !important;
+    color: white !important;
+}
+
+.btn-del {
+    border-color: #e74c3c;
+    background-color: transparent;
+    color: #e74c3c;
+}
+
+.btn-del:hover {
+    background-color: #e74c3c;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* tarefas */
+#taskList>div {
+    padding: 8px 0;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.2);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+}
+
+#taskList>div:first-child {
+    margin-top: 0;
+}
+
+#taskList li[style*="text-align: center"] {
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    opacity: 0.5;
+    font-style: italic;
+}
+
+@media (max-width: 480px) {
+    #taskList li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    #taskList li>div {
+        width: 100%;
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+    }
+}
+
+/*
+    SISTEMA DE METAS  
+*/
+.days-wrapper {
+    position: relative;
+    width: 70px;
+    text-align: right;
+    overflow: visible;
+}
+
+.days {
+    display: inline-block;
+    transform: translateX(0);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+}
+
+.days.move-left {
+    transform: translateX(-50px);
+}
+
+.delete-btn {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%) translateX(60px);
+    opacity: 0;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 2px 8px rgba(255, 77, 77, 0.3);
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+}
+
+.delete-btn.show {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+}
+
+.delete-btn.show {
+    opacity: 1;
+}
+
+
+/*select */
+.custom-select{
+    position: relative;
+    width: 40%;
+    margin: 12px 0 18px;
+    flex-flow: row wrap;
+}
+
+.select-trigger{
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer; 
+    transition: .25s ease;
+}
+
+.select-trigger:hover{
+    border-color: rgba(255,255,255,0.16);
+    background: rgba(255,255,255,0.06);
+}
+
+.select-arrow{
+    opacity: .7;
+    transition: .25s ease;
+}
+
+.custom-select.open .select-arrow{
+    transform: rotate(180deg);
+}
+
+.select-options{
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px) scale(.98);
+    pointer-events: none;
+    transition:
+        opacity .2s ease,
+        transform .25s cubic-bezier(.22,1,.36,1);
+    z-index: 50;
+}
+
+.custom-select.open .select-options{
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+
+.select-option{
+    padding: 14px 16px;
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.select-option:hover{
+    background: rgba(255,255,255,0.05);
+}
+
+.select-option.active{
+    background: rgba(255,255,255,0.08);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.goal-subcard{
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 20%;
+}
+
+.btn-addGoal{
+    position: relative;
+    top: calc(8px);
+    width: 30%;
+    padding: 14px 6px;
+    max-height: 60px;
+    max-width: 150px;
+    color: var(--text-color);
+    background-color: var(--primary-color);
+}
+
+.goal-indicator{
+    margin-right: 6px;
+    font-size: .8rem;
+    vertical-align: middle;
+}
+
+.goal-indicator{
+    position: relative;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.goal-indicator{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    vertical-align: middle;
+    font-size: .75rem;
+    font-weight: bold;
+}
+
+
+.goal-indicator.streak::before{
+    content: "◉";
+    color: #8e44ad;
+    text-shadow:
+        0 0 8px rgba(142,68,173,.45);
+    animation: streakPulse 2.4s ease-in-out infinite;
+}
+
+.goal-indicator.habits::before{
+    content: "◆";
+    color: #27ae60;
+    text-shadow:
+        0 0 8px rgba(39,174,96,.35);
+    animation: habitsGlow 4s ease-in-out infinite;
+}
+
+@keyframes streakPulse{
+    0%{
+        transform: scale(1);
+        opacity: .75;
+    }
+    50%{
+        transform: scale(1.18);
+        opacity: 1;
+    }
+    100%{
+        transform: scale(1);
+        opacity: .75;
+    }
+}
+@keyframes habitsGlow{
+    0%{
+        opacity: .55;
+        transform: rotate(0deg);
+    }
+    50%{
+        opacity: 1;
+        transform: rotate(6deg);
+    }
+    100%{
+        opacity: .55;
+        transform: rotate(0deg);
+    }
+}

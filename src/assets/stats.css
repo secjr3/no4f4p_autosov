@@ -1,0 +1,345 @@
+
+.tab-content { display: none; width: 100%; }
+.tab-content.active { display: block; animation: fadeIn 0.5s; }
+@keyframes fadeIn {
+    from {
+        opacity: 0; 
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos para Estatísticas Avançadas v0.39 */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.stat-card {
+    background: rgba(128, 128, 128, 0.05);
+    padding: 15px;
+    border-radius: 14px;
+    text-align: center;
+    border: 1px solid rgba(128, 128, 128, 0.1);
+    
+    transition: all 0.25s ease;
+    cursor: default;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-color);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    letter-spacing: 1px;
+}
+.stat-value.success {
+    color: #27ae60;
+}
+
+.stat-value.fail {
+    color: var(--accent-color);
+}
+
+.progress-section {
+    background: linear-gradient(
+        135deg,
+        rgba(16, 185, 129, 0.08),
+        rgba(16, 185, 129, 0.02)
+    );
+    padding: 15px;
+    border-radius: 14px;
+    margin: 20px 0;
+    border-left: 4px solid #10b981;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.progress-label {
+    font-size: 0.9rem;
+    opacity: 0.75;
+    font-weight: 500;
+}
+
+.next-level {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 12px;
+    background: rgba(128, 128, 128, 0.1);
+    border-radius: 4px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), #22c55e);
+    border-radius: 4px;
+    transition: width 0.6s ease;
+}
+
+.progress-bar::after {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 150px;
+    background: rgba(71, 248, 68, 0.3);
+    filter: blur(6px);
+    animation: shine 2.5s infinite linear;
+}
+
+@keyframes shine {
+    from { transform: translateX(-40px); }
+    to   { transform: translateX(250px); }
+}
+
+.relapse-item {
+    border-left: 4px solid var(--accent-color);
+    padding-left: 12px !important;
+    margin-bottom: 10px;
+    background: rgba(239, 68, 68, 0.04);
+    border-radius: 8px;
+
+    transition: 0.2s;
+}
+
+.relapse-item:hover {
+    background: rgba(239, 68, 68, 0.08);
+}
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.best-level-card {
+    grid-column: 1 / -1; 
+}
+.best-level-card {
+    width: 90%;
+    background: rgba(255, 217, 0, 0.11); 
+    border: 1px solid rgba(255, 217, 0, 0.603);
+    padding: 20px;
+    border-radius: 18px;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+.BL-card{
+    background: rgba(255, 215, 0, 0.05); 
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.best-level-title { font-size: 0.85rem; font-weight: 700; color: #fbbf24; text-transform: uppercase; }
+.best-level-name { font-size: 1.4rem; font-weight: 800; color: var(--text-color); }
+
+.btn-levels {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-color);
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.btn-levels:hover {
+    background: var(--primary-color);
+    color: #000;
+    border-color: var(--primary-color);
+}
+
+/* --- MODAL / OVERLAY DE NÍVEIS --- */
+.levels-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.levels-container {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 500px;
+    max-height: 80vh;
+    border-radius: 24px;
+    padding: 25px;
+    overflow-y: auto;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+}
+
+.levels-card{
+    border: 1px solid ;
+    padding: 14px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.02);
+    transition: all 0.6s ease;
+}
+
+.close-overlay {
+    position: absolute;
+    top: 15px; right: 15px;
+    background: var(--tab-inactive);
+    border: none; color: var(--text-color);
+    width: 32px; height: 32px; border-radius: 50%;
+    cursor: pointer; font-weight: bold;
+}
+.levels-card:hover {
+    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+
+
+.levels-overlay.active {
+    display: flex;
+    animation: fadeInOverlay 0.25s ease;
+}
+
+.levels-container {
+    transform: scale(0.85);
+    opacity: 1;
+    will-change: transform, opacity;
+}
+
+.levels-overlay.active .levels-container {
+    animation: iosScaleIn 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes iosScaleIn {
+    0% {
+        transform: scale(0.85);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.01); 
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+.levels-overlay.closing .levels-container {
+    animation: iosScaleOut 0.25s cubic-bezier(0.55, 0, 0.55, 0.2) forwards;
+}
+
+@keyframes iosScaleOut {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(0.85);
+        opacity: 0;
+    }
+}
+
+
+
+
+/* HOMEM DE OURO */
+.final-level:hover{
+    transform: translateY(-2px);
+    color: rgb(255, 196, 2);
+}
+.final-level {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f1c40f, #f39c12, #e67e22);
+  color: #000;
+  font-weight: 800;
+  box-shadow: 0 0 25px rgba(241, 196, 15, 0.6);
+  animation: gold-glow 3s ease-in-out infinite alternate;
+  border: none !important;
+}
+
+.final-level::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+  animation: shine 4s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes gold-glow {
+  from {
+    box-shadow: 0 0 20px rgba(241, 196, 15, 0.5),
+                0 0 40px rgba(243, 156, 18, 0.4);
+  }
+  to {
+    box-shadow: 0 0 15px rgba(241, 196, 15, 0.9),
+                0 0 30px rgba(255, 215, 0, 0.7);
+  }
+}
+
+@keyframes shine {
+  0%   { transform: translateX(-100%) translateY(-100%) rotate(25deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(25deg); }
+}
+
+/* Texto dourado mais premium no nível final */
+.final-level span {
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  color: #1a1a1a;
+}
+
+/* orb tipo partículas PS5 */
+@keyframes orbFloat {
+    0% {
+        transform: translate(-20%, -10%) scale(1);
+    }
+    25% {
+        transform: translate(10%, 5%) scale(1.15);
+    }
+    50% {
+        transform: translate(20%, 15%) scale(1);
+    }
+    75% {
+        transform: translate(-10%, 5%) scale(1.2);
+    }
+    100% {
+        transform: translate(-20%, -10%) scale(1);
+    }
+}
+
