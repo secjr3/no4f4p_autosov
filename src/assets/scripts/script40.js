@@ -1355,7 +1355,7 @@ document.addEventListener("click", (e) => {
 function isAfter1800() {
   const now = new Date();
   const hours = now.getHours();
-  return hours >= 11;
+  return hours >= 18;
 }
 
 function updateCheckinStatus() {
