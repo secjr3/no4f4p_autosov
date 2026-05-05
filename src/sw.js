@@ -16,8 +16,8 @@ const SYNC_TAG      = "autosov-sync";
 // Assets estáticos a colocar em cache no momento da instalação
 const STATIC_ASSETS = [
   "./",
-  "./No4F4P_AutoSov_0.4.html",
-  "assets/style.css",
+  "./index.html",
+  "assets/base.css",
   "assets/scripts/storage.js",
   "assets/scripts/tasks.js",
   "assets/scripts/script40.js",
