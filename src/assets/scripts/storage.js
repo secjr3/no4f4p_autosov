@@ -8,7 +8,7 @@ const AutoSovDB = (() => {
   const STORE_APP_DATA  = "appData";
   const STORE_SYNC_QUEUE = "syncQueue";
 
-  let db = null; // instância da base de dados — preenchida após init()
+  let db = null; 
 
   //  INICIALIZAÇÃO
   /**
@@ -69,7 +69,7 @@ const AutoSovDB = (() => {
   }
 
   /**
-   * Migra dados legados do localStorage para o store appData.
+   * Migra dados do localStorage para o store appData.
    * @param {IDBTransaction} tx
    */
   function _migrateFromLocalStorage(tx) {
@@ -88,8 +88,7 @@ const AutoSovDB = (() => {
   }
 
 
-  //  UTILITÁRIO INTERNO: transação genérica
-  // ─────────────────────────────────────────────
+  //  UTILITÁRIO INTERNO:
   /**
    * @param {string}   storeName 
    * @param {string}   mode       
@@ -111,9 +110,7 @@ const AutoSovDB = (() => {
     });
   }
 
-  // ─────────────────────────────────────────────
   //  API: DADOS PRINCIPAIS DA APP (appData)
-  // ─────────────────────────────────────────────
 
   /**
    * @returns {Promise<Object>}
@@ -124,7 +121,6 @@ const AutoSovDB = (() => {
       const { key, ...data } = record;
       return data;
     }
-    // Estado inicial padrão (primeira execução)
     return {
       startTime  : Date.now(),
       relapses   : [],
@@ -141,14 +137,10 @@ const AutoSovDB = (() => {
    */
   async function saveAppData(data) {
     await _run(STORE_APP_DATA, "readwrite", (store) => store.put({ key: "main", ...data }));
-    // Enfileira para sync remoto quando online
     await enqueueSyncOperation("UPDATE_APP_DATA", { ...data });
   }
 
-  // ─────────────────────────────────────────────
   //  API: TAREFAS (tasks)
-  // ─────────────────────────────────────────────
-
   /**
    * @param {Object} taskData 
    * @returns {Promise<number>}
@@ -183,7 +175,7 @@ const AutoSovDB = (() => {
   }
 
   /**
-   * Remove uma tarefa pelo seu id.
+   * Remover uma tarefa pelo id.
    * @param {number} id
    * @returns {Promise<void>}
    */
@@ -193,12 +185,12 @@ const AutoSovDB = (() => {
   }
 
   /**
-   * Remove tarefas concluídas há mais de 24 horas.
+   * Remover tarefas concluídas há mais de 24 horas.
    * @returns {Promise<void>}
    */
   async function _cleanExpiredTasks() {
     const now = Date.now();
-    const expireAfter = 24 * 60 * 60 * 1000; // 24 horas em ms
+    const expireAfter = 24 * 60 * 60 * 1000;
 
     return new Promise((resolve, reject) => {
       if (!db) { reject("[AutoSovDB] DB não inicializada."); return; }
@@ -211,7 +203,7 @@ const AutoSovDB = (() => {
         const cursor = e.target.result;
         if (cursor) {
           const task = cursor.value;
-          // Se a tarefa foi concluída e já passou 24h, remove-a
+        
           if (task.completed && task.completedAt && (now - new Date(task.completedAt).getTime()) > expireAfter) {
             cursor.delete();
           }
@@ -224,9 +216,7 @@ const AutoSovDB = (() => {
     });
   }
 
-  // ─────────────────────────────────────────────
   //  API: FILA DE SINCRONIZAÇÃO (syncQueue)
-  // ─────────────────────────────────────────────
 
   /**
    * Adiciona uma operação à fila de sincronização offline.
@@ -276,7 +266,6 @@ const AutoSovDB = (() => {
   }
 
   /**
-   * Remove entradas já sincronizadas da fila para manter a base de dados limpa.
    * @returns {Promise<void>}
    */
   function clearSyncedOperations() {
@@ -301,16 +290,14 @@ const AutoSovDB = (() => {
     });
   }
 
-  // ─────────────────────────────────────────────
   //  API PÚBLICA
-  // ─────────────────────────────────────────────
   return {
     init,
     // Dados principais
     loadAppData,
     saveAppData,
     // Tarefas
-    save    : saveTask,   // alias mantido para compatibilidade com tasks.js
+    save    : saveTask,   // alias para compatibilidade com tasks.js
     getAll  : getAllTasks,
     update  : updateTask,
     remove  : removeTask,

@@ -13,7 +13,6 @@
 const CACHE_NAME    = "autosov-v2";
 const SYNC_TAG      = "autosov-sync";
 
-// Assets estáticos a colocar em cache no momento da instalação
 const STATIC_ASSETS = [
   "./",
   "./index.html",
@@ -24,22 +23,18 @@ const STATIC_ASSETS = [
   "https://cdn.jsdelivr.net/npm/chart.js"
 ];
 
-// ─────────────────────────────────────────────
-//  INSTALAÇÃO — pré-cache dos assets estáticos
-// ─────────────────────────────────────────────
+//  INSTALAÇÃO — pré-cache dos assets
 
 self.addEventListener("install", (event) => {
   console.log("[SW] Instalando versão:", CACHE_NAME);
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => cache.addAll(STATIC_ASSETS))
-      .then(() => self.skipWaiting()) // activa imediatamente sem esperar pelo fecho de abas
+      .then(() => self.skipWaiting()) 
   );
 });
 
-// ─────────────────────────────────────────────
 //  ACTIVAÇÃO — limpa caches antigos
-// ─────────────────────────────────────────────
 
 self.addEventListener("activate", (event) => {
   console.log("[SW] Activando versão:", CACHE_NAME);
@@ -53,33 +48,27 @@ self.addEventListener("activate", (event) => {
             return caches.delete(key);
           })
       )
-    ).then(() => self.clients.claim()) // assume controlo de todas as abas imediatamente
+    ).then(() => self.clients.claim())
   );
 });
 
-// ─────────────────────────────────────────────
-//  FETCH — estratégia de resposta a pedidos
-// ─────────────────────────────────────────────
+//  FETCH 
 
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
 
-  // Ignora pedidos que não sejam GET (POST, PUT, DELETE vão para a sync queue)
   if (event.request.method !== "GET") return;
 
-  // Estratégia Network-First para pedidos de API (URLs com /api/)
   if (url.pathname.startsWith("/api/")) {
     event.respondWith(_networkFirst(event.request));
     return;
   }
 
-  // Estratégia Cache-First para todos os outros assets estáticos
   event.respondWith(_cacheFirst(event.request));
 });
 
 /**
- * Cache-First: serve do cache; se não existir, vai à rede e guarda no cache.
- * Ideal para assets estáticos (CSS, JS, imagens).
+  Cache-First: serve do cache; 
  */
 async function _cacheFirst(request) {
   const cached = await caches.match(request);
@@ -93,7 +82,6 @@ async function _cacheFirst(request) {
     }
     return networkResponse;
   } catch {
-    // Sem rede e sem cache — retorna página offline genérica se disponível
     const offlineFallback = await caches.match("./");
     return offlineFallback || new Response("Offline — sem ligação à internet.", {
       status : 503,
@@ -103,8 +91,7 @@ async function _cacheFirst(request) {
 }
 
 /**
- * Network-First: tenta a rede; se falhar, serve do cache.
- * Ideal para dados dinâmicos (API calls).
+ * Network-First; se falhar, serve do cache.
  */
 async function _networkFirst(request) {
   try {
@@ -123,9 +110,7 @@ async function _networkFirst(request) {
   }
 }
 
-// ─────────────────────────────────────────────
 //  BACKGROUND SYNC — processa fila offline
-// ─────────────────────────────────────────────
 
 self.addEventListener("sync", (event) => {
   if (event.tag === SYNC_TAG) {
@@ -134,11 +119,6 @@ self.addEventListener("sync", (event) => {
   }
 });
 
-/**
- * Processa as operações pendentes na syncQueue do IndexedDB.
- * Envia uma mensagem para o cliente activo para que este execute a drenagem
- * (o Service Worker não tem acesso directo ao AutoSovDB do cliente).
- */
 async function _processSyncQueue() {
   const clients = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
   clients.forEach((client) => {
