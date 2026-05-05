@@ -1297,7 +1297,7 @@ const reliefBtn = document.getElementById("relief-btn")
 const goalsBtn = document.getElementById("goals-btn")
 homeBtn.addEventListener("click", () => {
   openTab('home')
-  console.log(data)
+  //console.log(data)
 })//586
 statsBtn.addEventListener("click", () => { openTab('stats') })//235
 reliefBtn.addEventListener("click", () => { openTab('relief') })//235
@@ -1408,7 +1408,7 @@ function updateCheckinStatus() {
       statusEl.textContent = "Check-in disponível após 18:00";
       statusEl.classList.add("early-message")
       btn.style.display = "none";
-      console.log(statusBox);
+      //console.log(statusBox);
 
     }
 
