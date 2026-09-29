@@ -1,4 +1,4 @@
-##AutoSov
+## AutoSov
 ## - OQUE É?
  É um projecto inovador e ambicioso feito pra ajudar a tomar controle de comportamentos de vicíos impulsivos(como o vicio em conteúdo adulto).
 
