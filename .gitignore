@@ -1,0 +1,10 @@
+#todos exe
+*exe
+
+#extensoes de pastas
+node_modules/
+env/
+.vs_code/
+
+#extensoes de files
+*log
